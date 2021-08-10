@@ -8,6 +8,7 @@ export default class Home extends React.Component {
 
     this.state = {
       categories: [],
+      // products: [],
       searchText: '',
       searchRadio: false,
     };
@@ -15,6 +16,7 @@ export default class Home extends React.Component {
 
   componentDidMount = () => {
     getCategories().then((value) => this.setState({ categories: value }));
+    // getProductsFromCategoryAndQuery().then((value) => this.setState({ products: value }));
   }
 
   handleChange = ({ target }) => {
