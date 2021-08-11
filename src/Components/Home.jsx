@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { getCategories } from '../services/api';
+import { getCategories, getProductsFromCategoryAndQuery } from '../services/api';
 import SearchBar from './SearchBar';
 
 export default class Home extends React.Component {
@@ -9,7 +9,7 @@ export default class Home extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.state = {
       categories: [],
-      // products: [],
+      products: [],
       searchText: '',
       searchRadio: false,
       // id: '',
@@ -20,30 +20,25 @@ export default class Home extends React.Component {
     getCategories().then((value) => this.setState({ categories: value }));
   }
 
-  handleChange = ({ target }) => {
+  handleChange = async ({ target }) => {
     const { name } = target;
+    // console.log(target.id);
+    const products = await getProductsFromCategoryAndQuery(target.id);
+    console.log(products.results);
     const value = target.type === 'radio' ? target.checked : target.value;
     this.setState({
       [name]: value,
-      // id,
+      products: products.results,
     });
   }
 
-  // handleClick = ({ target }) => {
-  //   const { id } = target;
-  //   console.log(id);
-  //   this.handleChange({ target });
-  //   const { searchText } = this.state;
-  //   getProductsFromCategoryAndQuery(id, searchText).then((value) => this.setState({ products: value }));
-  // }
-
   render() {
-    const { categories, searchText, searchRadio } = this.state;
+    const { categories, searchText, searchRadio, products } = this.state;
     return (
       <div>
-        {/* <Link to="/cart" data-testid="shopping-cart-button" /> */}
         <Link to="/cart" data-testid="shopping-cart-button">Carrinho</Link>
         <SearchBar
+          // id={ id }
           searchText={ searchText }
           handleChange={ this.handleChange }
         />
@@ -57,12 +52,22 @@ export default class Home extends React.Component {
                   id={ id }
                   value={ searchRadio }
                   onChange={ this.handleChange }
-                  // onClick={ this.handleClick }
                 />
                 { name }
               </label>
             </li>
           )) }
+        </section>
+        <section>
+          <ul>
+            { products.map(({ id, title, price, thumbnail }) => (
+              <li key={ id }>
+                <h4>{ title }</h4>
+                <p>{ price }</p>
+                <img src={ thumbnail } alt={ title } />
+              </li>
+            )) }
+          </ul>
         </section>
       </div>
     );

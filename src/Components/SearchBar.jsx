@@ -7,7 +7,6 @@ class SearchBar extends React.Component {
   constructor() {
     super();
     this.state = {
-      // input: '',
       productList: [],
       loading: false,
       isClicked: false,
@@ -15,18 +14,13 @@ class SearchBar extends React.Component {
     this.handleList = this.handleList.bind(this);
   }
 
-  //  valueInput = ({ target }) => {
-  //    this.setState({
-  //      input: target.value,
-  //    });
-  //  }
+  handleChange = () => {
 
-  handleList = async () => {
+  }
+
+  handleList = async ({ target }) => {
+    console.log(target);
     const { searchText } = this.props;
-    // const { match: { params: { id } } } = this.props;
-    // console.log(id);
-    // console.log(match);
-    //  const { input } = this.state;
     this.setState({ loading: true }, async () => {
       const { results } = await api.getProductsFromCategoryAndQuery('all', searchText);
       // console.log(results);
@@ -40,7 +34,6 @@ class SearchBar extends React.Component {
 
   render() {
     const { productList, loading, isClicked } = this.state;
-    // console.log(productList);
     const { handleChange, searchText } = this.props;
     if (loading) return (<p>Carregando...</p>);
     return (
@@ -67,6 +60,7 @@ class SearchBar extends React.Component {
 SearchBar.propTypes = {
   handleChange: PropTypes.func.isRequired,
   searchText: PropTypes.string.isRequired,
+  // id: PropTypes.string.isRequired,
 };
 
 export default SearchBar;
