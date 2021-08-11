@@ -1,11 +1,12 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { getCategories } from '../services/api';
 import SearchBar from './SearchBar';
 
 export default class Home extends React.Component {
   constructor() {
     super();
-
+    this.handleChange = this.handleChange.bind(this);
     this.state = {
       categories: [],
       // products: [],
@@ -31,6 +32,7 @@ export default class Home extends React.Component {
     const { categories, searchText, searchRadio } = this.state;
     return (
       <div>
+        <Link to="/cart" data-testid="shopping-cart-button" />
         <SearchBar
           searchText={ searchText }
           handleChange={ this.handleChange }
