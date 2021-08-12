@@ -3,10 +3,8 @@ import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Home from './Components/Home';
 import Cart from './Components/Cart';
-// import Products from './Components/Products';
 
 import './App.css';
-// import SearchBar from './Components/SearchBar';
 
 class App extends React.Component {
   render() {
