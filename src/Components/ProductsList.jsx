@@ -59,6 +59,7 @@ export default class ProductsList extends React.Component {
 
   render() {
     const { categories, products, searchRadio, searchText, loading } = this.state;
+    console.log(products);
     if (loading) return (<p>Carregando...</p>);
     return (
       <div>
