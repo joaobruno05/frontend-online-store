@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import ProductsList from './ProductsList';
+import ProductsList from '../Components/ProductsList';
 
 export default class Home extends React.Component {
   render() {
