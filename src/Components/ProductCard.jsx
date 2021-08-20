@@ -1,20 +1,41 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
-class ProductCard extends React.Component {
+export default class ProductCard extends React.Component {
   render() {
-    const { product } = this.props;
+    const { product, updateCart } = this.props;
     const { id, title, price, thumbnail } = product;
 
-    if (product.length === 0) {
-      return <span> Nenhum produto foi encontrado; </span>;
-    }
     return (
-      <div>
-        <div data-testid="product" key={ id }>
-          <h1>{ title }</h1>
-          <img src={ thumbnail } alt={ title } />
-          <span>{ price }</span>
+      <div className="card-item">
+        <Link
+          to={ {
+            pathname: `/product/${id}/${title}`,
+            title,
+            price,
+            thumbnail,
+          } }
+          data-testid="product-detail-link"
+        >
+          <div data-testid="product" key={ id }>
+            <h3>{ title }</h3>
+            <img src={ thumbnail } alt={ title } />
+          </div>
+        </Link>
+        <div>
+          <h4>
+            {`R$${price}`}
+          </h4>
+          <button
+            data-testid="product-add-to-cart"
+            type="button"
+            id={ id }
+            onClick={ () => updateCart({ id, thumbnail, title, price }) }
+          >
+            Adicionar ao Carrinho
+          </button>
+
         </div>
       </div>
     );
@@ -22,7 +43,11 @@ class ProductCard extends React.Component {
 }
 
 ProductCard.propTypes = {
-  product: PropTypes.array,
-}.isRequired;
-
-export default ProductCard;
+  product: PropTypes.shape({
+    id: PropTypes.string,
+    title: PropTypes.string,
+    price: PropTypes.number,
+    thumbnail: PropTypes.string,
+  }).isRequired,
+  updateCart: PropTypes.func.isRequired,
+};

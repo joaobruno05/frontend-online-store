@@ -1,42 +1,71 @@
-.App {
-  text-align: center;
+li {
+  list-style-type: none;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.main-page {
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 5px;
+  padding: 5px 30px 20px;
 }
 
-@media ( prefers-reduced-motion : no-preference ) {
-
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-
-}
-
-.App-header {
+.right-page {
   align-items: center;
-  background-color: #282c34;
-  color: white;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
-  font-size: calc(10px + 2vmin);
+  margin: 5px;
+  padding: 5px 30px 20px;
+}
+
+.search-area {
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
   justify-content: center;
-  min-height: 100vh;
+  margin: 5px;
+  padding: 10px;
+  width: 800px;
 }
 
-.App-link {
-  color: #61dafb;
+/* .search-button {
+} */
+
+.banner-msg {
+  justify-content: center;
 }
 
-@keyframes App-logo-spin {
+.categories {
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 10px;
+  margin: 5px;
+  padding: 5px 30px 20px;
+  width: 300px;
+}
 
-  from {
-    transform: rotate(0deg);
-  }
+.card-item {
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 10px;
+  margin: 5px;
+  padding: 5px 30px 20px;
+  width: 600px;
+}
 
-  to {
-    transform: rotate(360deg);
-  }
+.empty-cart {
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 10px;
+  margin: 5px;
+  padding: 5px 30px 20px;
+}
+
+.used-cart {
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 10px;
+  margin: 5px;
+  padding: 5px 30px 20px;
 }
