@@ -11,7 +11,6 @@ export default class ProductsList extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleList = this.handleList.bind(this);
     this.handleInputSearchText = this.handleInputSearchText.bind(this);
-    this.addCart = this.addCart.bind(this);
 
     this.state = {
       categories: [],
@@ -74,7 +73,6 @@ export default class ProductsList extends React.Component {
         key={ product.id }
         product={ product }
         products={ products }
-        addCart={ this.addCart }
         updateCart={ updateCart }
       />
     ));

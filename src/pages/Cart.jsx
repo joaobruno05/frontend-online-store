@@ -9,6 +9,10 @@ export default class Cart extends React.Component {
     this.state = { vazio: true };
   }
 
+  updateCount = () => {
+    console.log('tem que atualizar o contadore de itens individual');
+  }
+
   render() {
     const { vazio } = this.state;
     const { /* itemId, */ itemThumb, itemTitle, itemPrice, itemCount } = this.props;
@@ -37,6 +41,7 @@ export default class Cart extends React.Component {
               name="itemCount"
               value={ itemCount }
               size="1"
+              onChange={ this.updateCount }
             />
             <button type="button">
               +
