@@ -9,6 +9,7 @@ class SearchBar extends React.Component {
         <input
           data-testid="query-input"
           type="text"
+          size="50"
           name="searchText"
           value={ searchText }
           onChange={ handleInputSearchText }
