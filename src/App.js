@@ -14,7 +14,7 @@ export default class App extends React.Component {
       itemThumb: '',
       itemTitle: '',
       itemPrice: 0,
-      itemCount: 0,
+      // itemCount: 0,
     };
     this.updateCart = this.updateCart.bind(this);
   }
@@ -26,12 +26,21 @@ export default class App extends React.Component {
       itemThumb: thumbnail,
       itemTitle: title,
       itemPrice: price,
-      itemCount: 1,
+      // itemCount: 1,
     });
   };
 
+  // addToCart = () => {
+  //   const { product } = this.props;
+  //   const { id, title, price, thumbnail } = product;
+  //   const newItem = { id, title, price, thumbnail };
+  //   this.setState((prevState) => ({
+  //     cart: [...prevState.cart, newItem],
+  //   }));
+  // }
+
   render() {
-    const { itemId, itemThumb, itemTitle, itemPrice, itemCount } = this.state;
+    const { itemId, itemThumb, itemTitle, itemPrice } = this.state;
     return (
       <div>
         <BrowserRouter>
@@ -48,7 +57,7 @@ export default class App extends React.Component {
                   itemThumb={ itemThumb }
                   itemTitle={ itemTitle }
                   itemPrice={ itemPrice }
-                  itemCount={ itemCount }
+                  // itemCount={ itemCount }
                 />) }
             />
             <Route

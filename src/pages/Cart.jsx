@@ -3,55 +3,94 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 export default class Cart extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+    const { itemPrice } = this.props;
 
-    this.state = { vazio: true };
+    this.state = {
+      // vazio: true,
+      itemCount: 1,
+      totalPrice: itemPrice,
+    };
   }
 
-  updateCount = () => {
-    console.log('tem que atualizar o contadore de itens individual');
+  increaseCount = () => {
+    const { itemPrice } = this.props;
+    this.setState((prevState) => ({
+      itemCount: prevState.itemCount + 1,
+      totalPrice: prevState.totalPrice + itemPrice,
+    }));
   }
+
+  decreaseCount = () => {
+    const { itemCount } = this.state;
+    const { itemPrice } = this.props;
+    if (itemCount > 1) {
+      this.setState((prevState) => ({
+        itemCount: prevState.itemCount - 1,
+        totalPrice: prevState.totalPrice - itemPrice,
+      }));
+    }
+  }
+
+  // updatePrice = () => {
+  //   const { totalPrice } = this.state;
+  //   this.setState((prevState) => ({
+  //     totalPrice: prevState.totalPrice + totalPrice,
+  //   }));
+  // }
 
   render() {
-    const { vazio } = this.state;
-    const { /* itemId, */ itemThumb, itemTitle, itemPrice, itemCount } = this.props;
-    if (vazio) {
+    const { itemCount, totalPrice } = this.state;
+    const { itemThumb, itemTitle, itemPrice } = this.props;
+    // let { itemPrice } = this.props;
+    if (itemTitle === '') {
       return (
-        <div>
-          <section className="empty-cart" data-testid="shopping-cart-empty-message">
-            <p><Link to="/">◀️Voltar</Link></p>
-            <h3>Seu carrinho está vazio</h3>
-          </section>
-          <section className="used-cart" data-testid="shopping-cart-product-name">
-            <h3>Carrinho de Compras</h3>
-            <img src={ itemThumb } alt={ itemTitle } />
-            <p>
-              { itemTitle }
-            </p>
-            <p>
-              {`R$${itemPrice}`}
-            </p>
-            <button type="button">
-              -
-            </button>
-            <input
-              data-testid="shopping-cart-product-quantity"
-              type="text"
-              name="itemCount"
-              value={ itemCount }
-              size="1"
-              onChange={ this.updateCount }
-            />
-            <button type="button">
-              +
-            </button>
-          </section>
-        </div>
+        // <div>
+        <section className="empty-cart" data-testid="shopping-cart-empty-message">
+          <p><Link to="/">◀️Voltar</Link></p>
+          <h3>Seu carrinho está vazio</h3>
+        </section>
       );
     }
     return (
-      <div />
+      <section className="used-cart">
+        <h3>Carrinho de Compras</h3>
+        <img src={ itemThumb } alt={ itemTitle } />
+        <p data-testid="shopping-cart-product-name">
+          { itemTitle }
+        </p>
+        <p>
+          {`R$ ${itemPrice}`}
+        </p>
+        <button
+          type="button"
+          data-testid="product-decrease-quantity"
+          onClick={ this.decreaseCount }
+        >
+          -
+        </button>
+        <span data-testid="shopping-cart-product-quantity">
+          { itemCount }
+        </span>
+        {/* <input
+          data-testid="shopping-cart-product-quantity"
+          type="text"
+          name="itemCount"
+          value={ itemCount }
+          size="1"
+        /> */}
+        <button
+          type="button"
+          data-testid="product-increase-quantity"
+          onClick={ this.increaseCount }
+        >
+          +
+        </button>
+        <div>
+          <p>{ `Valor total: R$ ${totalPrice}` }</p>
+        </div>
+      </section>
     );
   }
 }
