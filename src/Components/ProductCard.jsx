@@ -12,9 +12,11 @@ export default class ProductCard extends React.Component {
         <Link
           to={ {
             pathname: `/product/${id}/${title}`,
+            id,
             title,
             price,
             thumbnail,
+            updateCart,
           } }
           data-testid="product-detail-link"
         >

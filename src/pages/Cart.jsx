@@ -46,7 +46,6 @@ export default class Cart extends React.Component {
     // let { itemPrice } = this.props;
     if (itemTitle === '') {
       return (
-        // <div>
         <section className="empty-cart" data-testid="shopping-cart-empty-message">
           <p><Link to="/">◀️Voltar</Link></p>
           <h3>Seu carrinho está vazio</h3>
@@ -54,43 +53,40 @@ export default class Cart extends React.Component {
       );
     }
     return (
-      <section className="used-cart">
+      <div>
+        <p><Link to="/">◀️Voltar</Link></p>
         <h3>Carrinho de Compras</h3>
-        <img src={ itemThumb } alt={ itemTitle } />
-        <p data-testid="shopping-cart-product-name">
-          { itemTitle }
-        </p>
-        <p>
-          {`R$ ${itemPrice}`}
-        </p>
-        <button
-          type="button"
-          data-testid="product-decrease-quantity"
-          onClick={ this.decreaseCount }
-        >
-          -
-        </button>
-        <span data-testid="shopping-cart-product-quantity">
-          { itemCount }
-        </span>
-        {/* <input
-          data-testid="shopping-cart-product-quantity"
-          type="text"
-          name="itemCount"
-          value={ itemCount }
-          size="1"
-        /> */}
-        <button
-          type="button"
-          data-testid="product-increase-quantity"
-          onClick={ this.increaseCount }
-        >
-          +
-        </button>
-        <div>
-          <p>{ `Valor total: R$ ${totalPrice}` }</p>
-        </div>
-      </section>
+        <br />
+        <section className="used-cart">
+          <img src={ itemThumb } alt={ itemTitle } />
+          <p data-testid="shopping-cart-product-name">
+            { itemTitle }
+          </p>
+          <p>
+            {`R$ ${itemPrice}`}
+          </p>
+          <button
+            type="button"
+            data-testid="product-decrease-quantity"
+            onClick={ this.decreaseCount }
+          >
+            -
+          </button>
+          <span data-testid="shopping-cart-product-quantity">
+            { itemCount }
+          </span>
+          <button
+            type="button"
+            data-testid="product-increase-quantity"
+            onClick={ this.increaseCount }
+          >
+            +
+          </button>
+          <div>
+            <p>{ `Valor total: R$ ${totalPrice}` }</p>
+          </div>
+        </section>
+      </div>
     );
   }
 }
