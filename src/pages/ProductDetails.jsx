@@ -16,7 +16,7 @@ export default class ProductDetails extends React.Component {
 
   render() {
     const { evaluation } = this.state;
-    const { location: { title, price, thumbnail } } = this.props;
+    const { location: { id, title, price, thumbnail, updateCart } } = this.props;
     return (
       <>
         <div>
@@ -47,6 +47,15 @@ export default class ProductDetails extends React.Component {
           rows="10"
           onChange={ this.handleChange }
         />
+        <br />
+        <button
+          data-testid="product-detail-add-to-cart"
+          type="button"
+          id={ id }
+          onClick={ () => updateCart({ id, thumbnail, title, price }) }
+        >
+          Adicionar ao Carrinho
+        </button>
       </>
     );
   }
@@ -54,8 +63,10 @@ export default class ProductDetails extends React.Component {
 
 ProductDetails.propTypes = {
   location: PropTypes.shape({
+    id: PropTypes.string,
     title: PropTypes.string,
     price: PropTypes.number,
     thumbnail: PropTypes.string,
-  }).isRequired,
-};
+    updateCart: PropTypes.func,
+  }),
+}.isRequired;
