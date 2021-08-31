@@ -5,46 +5,42 @@ import { Link } from 'react-router-dom';
 export default class Cart extends React.Component {
   constructor(props) {
     super(props);
-    const { itemPrice } = this.props;
+    const { cart } = this.props;
 
     this.state = {
-      // vazio: true,
-      itemCount: 1,
-      totalPrice: itemPrice,
+      cart,
     };
   }
 
-  increaseCount = () => {
-    const { itemPrice } = this.props;
-    this.setState((prevState) => ({
-      itemCount: prevState.itemCount + 1,
-      totalPrice: prevState.totalPrice + itemPrice,
-    }));
+  increaseCount = (id) => {
+    const { cart } = this.state;
+    const mapCart = cart.map((item) => (id === item.id
+      ? { ...item, quantify: item.quantify + 1 }
+      : item));
+    this.setState({
+      cart: mapCart,
+    });
   }
 
-  decreaseCount = () => {
-    const { itemCount } = this.state;
-    const { itemPrice } = this.props;
-    if (itemCount > 1) {
-      this.setState((prevState) => ({
-        itemCount: prevState.itemCount - 1,
-        totalPrice: prevState.totalPrice - itemPrice,
-      }));
+  decreaseCount = (id, quantify) => {
+    const { cart } = this.state;
+    if (quantify > 1) {
+      const mapCart = cart.map((item) => (id === item.id
+        ? { ...item, quantify: item.quantify - 1 } : item));
+      this.setState({
+        cart: mapCart,
+      });
     }
   }
 
-  // updatePrice = () => {
-  //   const { totalPrice } = this.state;
-  //   this.setState((prevState) => ({
-  //     totalPrice: prevState.totalPrice + totalPrice,
-  //   }));
-  // }
+  handleSubmit = () => {
+    const { history } = this.props;
+    history.push('/finish-buy');
+  }
 
   render() {
-    const { itemCount, totalPrice } = this.state;
-    const { itemThumb, itemTitle, itemPrice } = this.props;
-    // let { itemPrice } = this.props;
-    if (itemTitle === '') {
+    const { cart } = this.state;
+    if (cart.length === 0) {
       return (
         <section className="empty-cart" data-testid="shopping-cart-empty-message">
           <p><Link to="/">◀️Voltar</Link></p>
@@ -58,33 +54,40 @@ export default class Cart extends React.Component {
         <h3>Carrinho de Compras</h3>
         <br />
         <section className="used-cart">
-          <img src={ itemThumb } alt={ itemTitle } />
-          <p data-testid="shopping-cart-product-name">
-            { itemTitle }
-          </p>
-          <p>
-            {`R$ ${itemPrice}`}
-          </p>
+          { cart.map(({ id, title, thumbnail, price, quantify }) => (
+            <div key={ title }>
+              <h4 data-testid="shopping-cart-product-name">
+                { title }
+              </h4>
+              <img src={ thumbnail } alt={ title } />
+              <p>
+                {`R$ ${price * quantify}`}
+              </p>
+              <button
+                type="button"
+                data-testid="product-decrease-quantity"
+                onClick={ () => this.decreaseCount(id, quantify) }
+              >
+                -
+              </button>
+              <span data-testid="shopping-cart-product-quantity">
+                { quantify }
+              </span>
+              <button
+                type="button"
+                data-testid="product-increase-quantity"
+                onClick={ () => this.increaseCount(id) }
+              >
+                +
+              </button>
+            </div>
+          )) }
           <button
             type="button"
-            data-testid="product-decrease-quantity"
-            onClick={ this.decreaseCount }
+            onClick={ this.handleSubmit }
           >
-            -
+            Finalizar compra
           </button>
-          <span data-testid="shopping-cart-product-quantity">
-            { itemCount }
-          </span>
-          <button
-            type="button"
-            data-testid="product-increase-quantity"
-            onClick={ this.increaseCount }
-          >
-            +
-          </button>
-          <div>
-            <p>{ `Valor total: R$ ${totalPrice}` }</p>
-          </div>
         </section>
       </div>
     );
