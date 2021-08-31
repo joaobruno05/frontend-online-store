@@ -4,43 +4,28 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Home from './pages/Home';
 import Cart from './pages/Cart';
 import ProductDetails from './pages/ProductDetails';
+import FinishBuy from './pages/FinishBuy';
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      itemId: '',
-      itemThumb: '',
-      itemTitle: '',
-      itemPrice: 0,
-      // itemCount: 0,
+      price: 0,
+      cart: [],
     };
-    this.updateCart = this.updateCart.bind(this);
   }
 
-  updateCart = (cartItem) => {
-    const { id, thumbnail, title, price } = cartItem;
-    this.setState({
-      itemId: id,
-      itemThumb: thumbnail,
-      itemTitle: title,
-      itemPrice: price,
-      // itemCount: 1,
-    });
+  updateCart = (id, title, thumbnail, price) => {
+    const cartItem = { id, title, thumbnail, price, quantify: 1 };
+    this.setState((prevState) => ({
+      price: prevState.price + price,
+      cart: [...prevState.cart, cartItem],
+    }));
   };
 
-  // addToCart = () => {
-  //   const { product } = this.props;
-  //   const { id, title, price, thumbnail } = product;
-  //   const newItem = { id, title, price, thumbnail };
-  //   this.setState((prevState) => ({
-  //     cart: [...prevState.cart, newItem],
-  //   }));
-  // }
-
   render() {
-    const { itemId, itemThumb, itemTitle, itemPrice } = this.state;
+    const { cart } = this.state;
     return (
       <div>
         <BrowserRouter>
@@ -51,20 +36,14 @@ export default class App extends React.Component {
             />
             <Route
               path="/cart"
-              component={ () => (
-                <Cart
-                  itemId={ itemId }
-                  itemThumb={ itemThumb }
-                  itemTitle={ itemTitle }
-                  itemPrice={ itemPrice }
-                  // itemCount={ itemCount }
-                />) }
+              render={ (props) => <Cart { ...props } cart={ cart } /> }
             />
             <Route
               exact
               path="/"
-              component={ () => <Home updateCart={ this.updateCart } /> }
+              render={ () => <Home updateCart={ this.updateCart } /> }
             />
+            <Route path="/finish-buy" component={ FinishBuy } />
           </Switch>
         </BrowserRouter>
       </div>
