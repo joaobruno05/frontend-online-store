@@ -12,9 +12,11 @@ export default class ProductCard extends React.Component {
         <Link
           to={ {
             pathname: `/product/${id}/${title}`,
+            id,
             title,
             price,
             thumbnail,
+            updateCart,
           } }
           data-testid="product-detail-link"
         >
@@ -31,7 +33,7 @@ export default class ProductCard extends React.Component {
             data-testid="product-add-to-cart"
             type="button"
             id={ id }
-            onClick={ () => updateCart({ id, thumbnail, title, price }) }
+            onClick={ () => updateCart(id, title, thumbnail, price) }
           >
             Adicionar ao Carrinho
           </button>
