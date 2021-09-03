@@ -33,10 +33,10 @@ export default class Cart extends React.Component {
     }
   }
 
-  handleSubmit = () => {
-    const { history } = this.props;
-    history.push('/finish-buy');
-  }
+  // handleSubmit = () => {
+  //   const { history } = this.props;
+  //   history.push('/finish-buy');
+  // }
 
   render() {
     const { cart } = this.state;
@@ -82,12 +82,13 @@ export default class Cart extends React.Component {
               </button>
             </div>
           )) }
-          <button
-            type="button"
-            onClick={ this.handleSubmit }
+          <Link
+            to="/finish-buy"
+            data-testid="checkout-products"
+            params={ cart }
           >
             Finalizar compra
-          </button>
+          </Link>
         </section>
       </div>
     );
