@@ -54,7 +54,7 @@ export default class Cart extends React.Component {
         <h3>Carrinho de Compras</h3>
         <br />
         <section className="used-cart">
-          { cart.map(({ id, title, thumbnail, price, quantify }) => (
+          { cart.map(({ id, title, thumbnail, price, quantify, max }) => (
             <div key={ title }>
               <h4 data-testid="shopping-cart-product-name">
                 { title }
@@ -76,7 +76,7 @@ export default class Cart extends React.Component {
               <button
                 type="button"
                 data-testid="product-increase-quantity"
-                onClick={ () => this.increaseCount(id) }
+                onClick={ () => this.increaseCount(id, max) }
               >
                 +
               </button>
