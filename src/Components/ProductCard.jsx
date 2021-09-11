@@ -17,6 +17,7 @@ export default class ProductCard extends React.Component {
             title,
             price,
             thumbnail,
+            // totalQuantify,
             updateCart,
           } }
           data-testid="product-detail-link"

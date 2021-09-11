@@ -3,9 +3,12 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 export default class ProductDetails extends React.Component {
-  constructor() {
-    super();
-    this.state = { evaluation: '' };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      evaluation: '',
+    };
     this.handleChange = this.handleChange.bind(this);
   }
 
@@ -15,17 +18,22 @@ export default class ProductDetails extends React.Component {
   }
 
   render() {
+    const cart = localStorage.getItem('cart-size');
     const { evaluation } = this.state;
     const { location: { id, title, price, thumbnail, updateCart } } = this.props;
     return (
-      <>
+      // <>
+      <div>
         <div>
-          <p>
+          <p data-testid="shopping-cart-size">
             <Link
-              to="/cart"
+              to={ {
+                pathname: '/cart',
+                // totalQuantify,
+              } }
               data-testid="shopping-cart-button"
             >
-              Carrinho 🛒
+              { `Carrinho ${cart} 🛒`}
             </Link>
           </p>
           <h1 data-testid="product-detail-name">{ title }</h1>
@@ -56,7 +64,8 @@ export default class ProductDetails extends React.Component {
         >
           Adicionar ao Carrinho
         </button>
-      </>
+      </div>
+      // </>
     );
   }
 }
@@ -68,5 +77,5 @@ ProductDetails.propTypes = {
     price: PropTypes.number,
     thumbnail: PropTypes.string,
     updateCart: PropTypes.func,
-  }),
-}.isRequired;
+  }).isRequired,
+};

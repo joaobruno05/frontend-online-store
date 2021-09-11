@@ -33,11 +33,6 @@ export default class Cart extends React.Component {
     }
   }
 
-  // handleSubmit = () => {
-  //   const { history } = this.props;
-  //   history.push('/finish-buy');
-  // }
-
   render() {
     const { cart } = this.state;
     if (cart.length === 0) {
