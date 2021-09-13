@@ -21,6 +21,7 @@ export default class ProductDetails extends React.Component {
     const cart = localStorage.getItem('cart-size');
     const { evaluation } = this.state;
     const { location: { id, title, price, thumbnail, updateCart } } = this.props;
+    const product = { id, title, price, thumbnail, available_quantity: 3, updateCart };
     return (
       // <>
       <div>
@@ -60,7 +61,7 @@ export default class ProductDetails extends React.Component {
           data-testid="product-detail-add-to-cart"
           type="button"
           id={ id }
-          onClick={ () => updateCart(id, title, thumbnail, price) }
+          onClick={ () => updateCart(product) }
         >
           Adicionar ao Carrinho
         </button>
