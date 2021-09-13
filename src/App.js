@@ -27,12 +27,13 @@ export default class App extends React.Component {
     }
   }
 
-  updateCart = (id, title, thumbnail, price) => {
-    const { cartSize, cart } = this.state;
-    const cartItem = { id, title, thumbnail, price, quantify: 1 };
-    
+  // updateCart = (id, title, thumbnail, price) => {
+  //   const { cartSize, cart } = this.state;
+  //   const cartItem = { id, title, thumbnail, price, quantify: 1 };
+
   updateCart = (product) => {
     const max = product.available_quantity;
+    const { cartSize, cart } = this.state;
     const { id, title, thumbnail, price } = product;
     const cartItem = { id, title, thumbnail, price, quantify: 1, max };
     this.setState((prevState) => ({
