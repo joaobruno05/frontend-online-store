@@ -10,6 +10,7 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     const size = localStorage.getItem('cart-size');
+
     this.state = {
       price: 0,
       cart: [],
